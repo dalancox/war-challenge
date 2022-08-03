@@ -38,7 +38,7 @@ struct ContentView: View {
                             
                     VStack {
                         Text("Player")
-                            .font(.title2)
+                            .font(.title3)
                             .foregroundColor(Color.white)
                         Text("0")
                             .font(.largeTitle)
@@ -77,8 +77,6 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             ContentView()
                 .previewDevice("iPhone 13")
-            ContentView()
-            ContentView()
         }
     }
 }
