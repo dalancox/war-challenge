@@ -13,6 +13,30 @@ struct ContentView: View {
     @State private var cpuCard:String = "card6"
     @State private var playerScore:Int = 0
     @State private var cpuScore:Int = 0
+    @State private var winner:String = ""
+    @State private var showDetail = false
+    
+    func gameLogic() -> Void {
+        //reset tie
+        
+        let playerRand = Int.random(in: 2...14)
+        let cpuRand = Int.random(in: 2...14)
+        
+        // update cards
+        playerCard = "card" + String(playerRand)
+        cpuCard = "card" + String(cpuRand)
+        
+        //configuring score
+        if(playerRand > cpuRand) {
+            playerScore += 1
+            winner = "Player Wins!"
+        } else if (playerRand < cpuRand) {
+            cpuScore += 1
+            winner = "CPU Wins!"
+        } else {
+            winner = "Tie Game!"
+        }
+    }
     
     var body: some View {
         
@@ -34,29 +58,18 @@ struct ContentView: View {
                         
                 Spacer()
                         
-                Button(action: {
-                    let playerRand = Int.random(in: 2...14)
-                    let cpuRand = Int.random(in: 2...14)
-                    
-                    // update cards
-                    playerCard = "card" + String(playerRand)
-                    cpuCard = "card" + String(cpuRand)
-                    
-                    //configuring score
-                    if(playerRand > cpuRand) {
-                        playerScore += 1
-                    } else if (playerRand < cpuRand) {
-                        cpuScore += 1
-                    } else {
-                        print("Tie Game!")
-                    }
-                    
-                },label: {
+                Button(action: gameLogic,label: {
                     Image("dealbutton")
                 })
                         
                 Spacer()
-                        
+                
+                Text(winner)
+                    .font(.largeTitle)
+                    .foregroundColor(Color.red)
+                    .padding(.bottom)
+                    .animation(.easeInOut, value: showDetail)
+                
                 HStack {
                             
                     Spacer()
